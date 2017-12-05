@@ -1,0 +1,38 @@
+/**
+ * 
+ * @author jtwinters
+ *
+ */
+import java.util.Random;
+public class PetriDish {
+	
+	// VARIABLES //
+
+	public final int STARTING_AMOEBAS = 100;
+	public final int STARTING_NEMATODES = 5;
+	private Organism[][] dish = new Organism[20][20];
+	Random randomGenerator = new Random();
+
+	// CONSTRUCTORS //
+
+	public PetriDish() {
+		dish = new Organism[20][20];
+	}
+
+	public PetriDish(Organism[][] dish1) {
+		dish = dish1;
+	}
+
+	public void update() {
+
+	}
+
+	public void moveAllOrganisms() {
+		
+	}
+
+	public void drawAllOrganisms() {
+
+		
+	}
+}

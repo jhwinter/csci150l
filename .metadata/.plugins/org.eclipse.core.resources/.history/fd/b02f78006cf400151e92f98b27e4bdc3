@@ -1,0 +1,47 @@
+
+/**
+ * 
+ * @author jtwinters
+ *
+ */
+
+import java.awt.Point;
+public class Amoeba extends Organism {
+
+	// CONSTRUCTORS //
+
+	public Amoeba() {
+
+	}
+
+	public Amoeba(int stepsToSpawn1, Point position1) {
+
+	}
+
+	// SETTERS //
+
+	public void setStepsToSpawn(int stepsToSpawn1) {
+		stepsToSpawn = stepsToSpawn1;
+	}
+
+	// INHERITED METHODS //
+
+	/*public boolean move() {
+		int direction = (int)(Math.random() * (4) + 0);
+		
+		
+		return false;
+	} */
+	
+	public void move() {
+		
+		
+	}
+	public void draw() {
+
+	}
+
+	public boolean spawnChild() {
+		return false;
+	}
+}

@@ -1,0 +1,172 @@
+import java.util.Scanner;
+
+/**
+ * StereoShop.java - This program displays a menu that allows the user to select
+ * one of the following options: see total discounts given, checkout, or quit
+ * and allows a Record Shop to give a discount to its clients if they buy one or
+ * more stereo system components and at least 5 items. The discount is equal to
+ * 20 percent of the cost of the other items, but NOT the stereo system
+ * components.
+ * 
+ * @author jtwinters
+ * @course CSCI 150kf
+ * @homework02 StereoShop
+ * @email jtwinters@g.coastal.edu
+ * @date 1/25/2016
+ * 
+ */
+public class StereoShop {
+
+	// 1. declare constants
+	public static final String MENU = "\nMENU \n" + "	Enter DISCOUNTS - to display total discounts \n"
+			+ "	Enter SHOP - to shop for items and determine your bill \n" + "	Enter QUIT - to exit the program \n"
+			+ "Please enter your selection: ";
+	public static final String STARS = "\n****************************************************************************\n";
+	/**
+	 * Entry point to the program
+	 * 
+	 * @param args
+	 *            Command line arguments
+	 */
+	public static void main(String[] args) {
+		// TODO auto-generated method stub
+		// 1. declare variables
+		Scanner in = new Scanner(System.in);
+		String userAnswer = "none";
+		double[] price = new double[10];
+		boolean[] isComponent = new boolean[10];
+		int aNumberOfItems = 0;
+		double totalDiscounts = 0.0;
+		// 2. display greeting
+		displayGreeting();
+
+		// 3. loop (exit the loop if user enters "QUIT")
+			// 3a. display menu and read in user response
+			// 3b. if user enters "SHOP", enter the shop method
+			// 3c. if user enters "DISCOUNTS", display total discounts
+		while (!userAnswer.equalsIgnoreCase("QUIT")) {
+			userAnswer = showMenu(in);
+			if (userAnswer.equalsIgnoreCase("QUIT")) {
+				System.out.println("\nThank you for shopping at Jonathan's Stereo Shop! Have a nice day!");
+				System.exit(1);
+			}
+			System.out.println("You have selected " + userAnswer.toUpperCase());
+			if (userAnswer.equalsIgnoreCase("SHOP")) {
+				shop(price, isComponent);
+			}
+			if (userAnswer.equalsIgnoreCase("DISCOUNTS")) {
+				discount(price, isComponent, aNumberOfItems);
+				displayTotalDiscount(totalDiscounts);
+			}
+		System.out.println("\nFinished shopping... ");
+		
+		}
+
+	}
+
+	/**
+	 * This method prints a message to the user welcoming them to the StereoShop
+	 * 
+	 */
+	public static void displayGreeting() {
+		// 1. print greeting message
+		System.out.println("Welcome to Jonathan's Stereo Shop!");
+	}
+
+	/**
+	 * This method prints the total discounts given during this session (all
+	 * transactions)
+	 * 
+	 * @param totalDiscounts
+	 */
+	public static void displayTotalDiscount(double totalDiscounts) {
+		// 1. declare variables
+		double totalDiscounts1 = totalDiscounts;
+		
+		// 2. print out the total discounts
+		System.out.println("Total discounts applied: " + totalDiscounts1);
+	}
+
+	/**
+	 * This method allows the user to enter the price of each item and whether
+	 * or not it is a stereo component or not until the arrays are full or the
+	 * user enters a sentinel value of -1 for the price to quit. For the ith
+	 * item, prices[i] is the price of the item before any discount, and
+	 * isComponent[i] is true if the ith item is a Stereo Component.
+	 * 
+	 * @param price 
+	 * @param isComponent
+	 * @return
+	 */
+	public static int shop(double[] price, boolean[] isComponent) {
+		// 1. declare variables
+		Scanner in = new Scanner(System.in);
+		int aNumberOfItems = 0;
+		boolean componentIn;
+		// 2. loop
+			// 2a. prompt the user for input
+		
+			for (int i = 0; i < price.length; i++) {
+				System.out.print("Please enter the price of item 1 (-1 when finished): ");
+				double priceIn = in.nextDouble();
+				price[i] = priceIn;
+				if (priceIn == -1) {
+					break;
+				}
+				System.out.print("Is item a stereo component (yes/no): ");
+				String compIn = in.next();
+				if (compIn.equalsIgnoreCase("yes") || compIn.equalsIgnoreCase("y")){
+					componentIn = true;
+				} else {
+					componentIn = false;
+				}
+				isComponent[i] = componentIn;
+				
+				aNumberOfItems = i;
+			}
+
+		return aNumberOfItems;
+	}
+
+	/**
+	 * This method receives the information from the shop method and determines
+	 * the total cost of all of the items to be purchased.
+	 * 
+	 * @param prices
+	 * @param isComponent
+	 * @param aNumberOfItems
+	 * @return
+	 */
+	public static double discount(double[] price, boolean[] isComponent, int aNumberOfItems) {
+		// 1. declare variables
+		double[] price1 = price; 
+		boolean[] isComponent1 = isComponent;
+		int aNumberOfItems1 = aNumberOfItems;
+		
+		
+		
+		
+		return 0.0;
+	}
+
+	/**
+	 * This method displays the menu and takes in user input
+	 * 
+	 * @param in
+	 *            reads in user input
+	 * @return returns the user input to the main method
+	 */
+	public static String showMenu(Scanner in) {
+		// 1. display menu
+		System.out.print(STARS);
+		System.out.print(MENU);
+
+		// 2. read in user input
+		String userAnswer = in.nextLine();
+
+		// 3. return user response
+		return userAnswer;
+
+	}
+
+}

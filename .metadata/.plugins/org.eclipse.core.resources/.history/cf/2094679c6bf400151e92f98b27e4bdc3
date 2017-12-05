@@ -1,0 +1,83 @@
+
+/**
+ * 
+ * @author jtwinters
+ *
+ */
+import java.awt.Point;
+
+abstract class Organism {
+
+	// VARIABLES //
+
+	private boolean alive = true;
+	protected int stepsToSpawn = 0;
+	private int row = 0;
+	private int col = 0;
+	protected Point position = new Point(row, col);
+	private char symbol = 'z';
+
+	// CONSTRUCTORS //
+
+	public Organism() {
+		alive = true;
+		stepsToSpawn = 0;
+		row = 0;
+		col = 0;
+		symbol = 'z';
+		position = getPosition();
+	}
+
+	public Organism(int stepsToSpawn1, Point position1) {
+		alive = true;
+		stepsToSpawn = stepsToSpawn1;
+		position = position1;
+		symbol = 'z';
+	}
+
+	// ABSTRACT METHODS //
+
+	//abstract boolean move();
+
+	abstract boolean spawnChild();
+
+	abstract void draw();
+
+	// SETTERS //
+
+	public void setStepsToSpawn(int stepsToSpawn1) {
+		stepsToSpawn = stepsToSpawn1;
+	}
+
+	public void setPosition(int row1, int col1) {
+		row = row1;
+		col = col1;
+	}
+
+	public void setSymbol(char symbol1) {
+		symbol = symbol1;
+	}
+
+	public void setAlive(boolean alive1) {
+		alive = alive1;
+	}
+
+	// GETTERS //
+
+	public int getStepsToSpawn() {
+		return stepsToSpawn;
+	}
+
+	public Point getPosition() {
+		return position;
+	}
+
+	public char getSymbol() {
+		return symbol;
+	}
+
+	public boolean getAlive() {
+		return alive;
+	}
+
+}

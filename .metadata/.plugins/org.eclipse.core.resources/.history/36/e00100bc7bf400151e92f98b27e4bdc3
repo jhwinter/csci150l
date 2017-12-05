@@ -1,0 +1,101 @@
+
+/**
+ * 
+ * @author jtwinters
+ *
+ */
+import java.awt.Point;
+
+public class Nematode extends Organism {
+
+	// VARIABLES //
+	private int stepsToStarve = 4;
+
+	// CONSTRUCTORS //
+
+	public Nematode() {
+		stepsToSpawn = 10;
+
+	}
+
+	public Nematode(int stepsToSpawn1, int stepsToStarve1, Point position1) {
+		stepsToSpawn = stepsToSpawn1;
+		stepsToStarve = stepsToStarve1;
+		position = position1;
+	}
+
+	// SETTERS //
+
+	public void setStepsToSpawn(int stepsToSpawn1) {
+		stepsToSpawn = stepsToSpawn1;
+	}
+
+	public void setStepsToStarve(int stepsToStarve1) {
+		stepsToStarve = stepsToStarve1;
+	}
+
+	// GETTERS //
+
+	public int getStepsToStarve() {
+		return stepsToStarve;
+	}
+
+	public void consume(Amoeba a1) {
+
+	}
+
+	public void starve() {
+
+	}
+
+	// INHERITED METHODS //
+
+	public boolean move() {
+		PetriDish objDish = new PetriDish();
+		int direction = 0;
+		int left = 0;
+		int up = 1;
+		int right = 2;
+		int down = 3;
+		for (int row = 0; row < 20; row++) {
+			for (int col = 0; col < 20; col++) {
+				if (objDish.dish[row][col] == new Nematode()){
+					direction = (int) Math.random() * 4;
+					if (direction == left) {
+						if (objDish.dish[row][col-1] == null) {
+						objDish.dish[row][col-1] = new Nematode();
+						objDish.dish[row][col] = null;
+					} 
+					
+					} else if (objDish.dish[row][col+1] == null) {
+						objDish.dish[row][col-1] = new Nematode();
+						objDish.dish[row][col] = null;
+					} else if (objDish.dish[row-1][col] == null) {
+						objDish.dish[row-1][col] = new Nematode();
+						objDish.dish[row][col] = null;
+					} else if (objDish.dish[row+1][col] == null) {
+						objDish.dish[row+1][col] = new Nematode();
+						objDish.dish[row][col] = null;
+					}
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		return false;
+	}
+
+	public boolean spawnChild() {
+		return false;
+	}
+
+	public void draw() {
+
+	}
+}

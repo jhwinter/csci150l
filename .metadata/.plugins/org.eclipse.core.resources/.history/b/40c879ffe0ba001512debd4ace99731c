@@ -1,0 +1,89 @@
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+
+/**
+ * Lab01.java - inventory control program for modifying prices of vehicles
+ * according to age
+ * 
+ * @author Jonathan Winters
+ * @course CSCI 150
+ * @email jtwinters@g.coastal.edu
+ * @date 1/14/2016
+ * 
+ */
+
+public class Lab01 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		if (args.length != 2) {
+			System.out.println("Error: two files were not passsed into the program");
+			System.out.println("System shutting down...");
+
+			System.exit(1); // zero means program ran successfully with no
+							// problems
+			// any other integer means that there was a problem
+		}
+		args[0] = "/home/jonathan/workspace/CSCI150L/Labs/inventory.txt";
+		// 1 process the first argument file and create the second argument
+		// file
+		processFile(args[0], args[1]);
+
+		System.out.println("Process complete, " + args[1] + " has been created. ");
+	}
+
+	public static void processFile(String inventoryFile, String inventoryFile2) {
+		// 1. declare variables
+		// 2. initialize reader and writer
+		Scanner reader = null;
+		PrintWriter writer = null;
+
+		File inputFile = new File(inventoryFile);
+		File outputFile = new File(inventoryFile2);
+
+		String make = "no make yet";
+		String model = "no model yet";
+		int indexMake = 0;
+		int year = 0;
+		double price = 0.0;
+		double modifiedPrice = 0.0;
+		// 3. loop
+		// 3a. extract the make
+		try {
+
+			while (reader.hasNext()) {
+				make = reader.next();
+				writer.print(make);
+				indexMake++;
+			}
+
+			// 3b. extract the model
+			
+
+			// 3c. extract year from file
+
+			// 3d. extract original price from file
+
+			// 3e. determine if 5% discount
+			// 3e1. calculate new price with discount
+
+			// 3f. determine if 10% discount
+			// 3e1. calculate new price with discount
+
+			// 3g. determine if 50% discount
+			// 3g1. calculate new price with discount
+
+			// 3h. determine if 20% increase
+			// 3h1. calculate new price with increase
+
+			// 3i. write make, model, year, price to inventoryFile2
+		} catch (FileNotFoundException fnfe) {
+			System.out.println("File Not Found Exception Caught: " + fnfe.getMessage());
+			System.exit(2);
+		}
+	}
+
+}

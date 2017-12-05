@@ -1,0 +1,65 @@
+/**
+ * 
+ * @author jtwinters
+ *
+ */
+import java.util.Random;
+public class PetriDish {
+	
+	// VARIABLES //
+
+	public final int STARTING_AMOEBAS = 100;
+	public final int STARTING_NEMATODES = 5;
+	private Organism[][] dish = new Organism[20][20];
+	Random randomGenerator = new Random();
+
+	// CONSTRUCTORS //
+
+	public PetriDish() {
+		dish = new Organism[20][20];
+	}
+
+	public PetriDish(Organism[][] dish1) {
+		dish = dish1;
+	}
+
+	public void update() {
+
+	}
+
+	public void moveAllOrganisms() {
+		
+	}
+
+	public void drawAllOrganisms() {
+		/*for (int i = 20, i < 21; i++) {
+			for (int j = 20, j < 21; j++) {
+				dish[i][j] = 
+			}
+		} */
+		//int randomInt = randomGenerator.nextInt(20);
+		//int randomInt2 = randomGenerator.nextInt();
+		boolean move = true; 
+		//System.out.println(randomInt + " + " + randomInt2);
+		/*while (move) {
+			if (dish[randomInt][randomInt2] == null) {
+				dish[randomInt][randomInt2];
+				
+			}
+			
+		}*/
+		
+	}
+	
+	public static void main(String[] args) {
+		Random randomGenerator = new Random();
+		int randomInt = randomGenerator.nextInt(20);
+		int randomInt2 = randomGenerator.nextInt();
+		boolean move = true; 
+		System.out.println(randomInt + " + " + randomInt2);
+		
+		
+		
+		
+	}
+}

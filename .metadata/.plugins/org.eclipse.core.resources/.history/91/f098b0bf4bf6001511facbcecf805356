@@ -1,0 +1,340 @@
+
+/**
+ * 
+ * @author jtwinters
+ *
+ */
+import java.util.Random;
+
+public class PetriDish {
+
+	// VARIABLES //
+
+	public static final int STARTING_AMOEBAS = 100;
+	public static final int STARTING_NEMATODES = 5;
+	private static Organism[][] dish = new Organism[20][20];
+	Random randomGenerator = new Random();
+	// public static PetriDish petriDish = new PetriDish();
+
+	// CONSTRUCTORS //
+
+	public PetriDish() {
+		dish = new Organism[20][20];
+		// drawAllOrganisms();
+		// update();
+		// moveAllNematodes();
+		// moveAllAmoebas();
+	}
+
+	public static void main(String[] args) {
+		int aliveN = 0;
+		int aliveA = 0;
+		// boolean aliveO = true;
+		int timeStep = 0;
+		drawAllOrganisms();
+
+		do {
+			try {
+				Thread.sleep(2000);
+				update();
+				System.out.println("\n");
+				aliveN = 0;
+				aliveA = 0;
+				for (int i = 0; i < dish.length; i++) {
+					for (int j = 0; j < dish[i].length; j++) {
+						if (dish[i][j] != null) {
+							if (dish[i][j] instanceof Amoeba) {
+								aliveA++;
+							}
+							if (dish[i][j] instanceof Nematode) {
+								aliveN++;
+							}
+						}
+					}
+				}
+				timeStep++;
+				System.out.println("Time step: " + timeStep);
+				System.out.println("Nematode count: " + aliveN);
+				System.out.println("Amoeba count: " + aliveA);
+
+				moveAllNematodes();
+
+				moveAllAmoebas();
+
+			} catch (InterruptedException ie) {
+				System.out.println("InterruptedException should not have occurred.");
+			}
+		} while (aliveA > 0 && aliveN > 0);
+
+		if (aliveA == 0) {
+			System.out.println("All Amoebas are dead. Simulation over.");
+			System.exit(1);
+		} else if (aliveN == 0) {
+			System.out.println("All Nematodes are dead. Simulation over.");
+			System.exit(1);
+		}
+
+	}
+
+	/*
+	 * public static void main(String[] args) { drawAllOrganisms(); update(); }
+	 */
+
+	/*
+	 * public PetriDish(Organism[][] dish1) { dish = dish1; }
+	 */
+
+	/**
+	 * redraws the array after each time step
+	 * 
+	 */
+	public static void update() {
+		for (int i = 0; i < dish.length; i++) {
+			System.out.print(i + " ");
+			for (int j = 0; j < dish[i].length; j++) {
+				if (dish[i][j] instanceof Nematode || dish[i][j] instanceof Amoeba) {
+					System.out.print(dish[i][j].getSymbol() + " ");
+				} else if (dish[i][j] == null) {
+					System.out.print("-" + " ");
+				}
+
+			}
+			System.out.println();
+		}
+	}
+
+	/**
+	 * initializes the array by putting in 100 Amoebas and 5 nematodes to start
+	 * with
+	 */
+	public static void drawAllOrganisms() {
+		// int randomRow = new Random().nextInt(4);
+		// int randomCol = new Random().nextInt(4);
+		int nemCounter = 0;
+		int amCounter = 0;
+
+		while (nemCounter < STARTING_NEMATODES) {
+			int randomRow = (int) (Math.random() * 20);
+			int randomCol = (int) (Math.random() * 20);
+			if (dish[randomRow][randomCol] == null) {
+				nemCounter++;
+				dish[randomRow][randomCol] = new Nematode();
+			}
+		}
+
+		while (amCounter < STARTING_AMOEBAS) {
+			int randomRow = (int) (Math.random() * 20);
+			int randomCol = (int) (Math.random() * 20);
+			if (dish[randomRow][randomCol] == null) {
+				amCounter++;
+				dish[randomRow][randomCol] = new Amoeba();
+
+			}
+		}
+	}
+
+	/**
+	 * moves all organisms method not necessary
+	 */
+	/*
+	 * public void moveAllOrganisms() {
+	 * 
+	 * }
+	 */
+
+	/**
+	 * moves all Nematodes
+	 */
+	public static void moveAllNematodes() {
+		int direction = 0;
+		int left = 0;
+		int up = 1;
+		int right = 2;
+		int down = 3;
+		for (int row = 0; row < dish.length; row++) {
+			for (int col = 0; col < dish[row].length; col++) {
+				try {
+					if (dish[row][col] instanceof Nematode) {
+						// Nematode nematode1 = (Nematode)
+						Nematode nematode1 = (Nematode) dish[row][col];
+						if (nematode1.getHasMoved() != true) {
+							if (dish[row][col - 1] instanceof Amoeba) {
+								nematode1.consume();
+								dish[row][col - 1] = nematode1;
+								// Nematode nematode1A = (Nematode)
+								// dish[row][col - 1];
+								// nematode1.consume();
+								// nematode1A.consume();
+								dish[row][col] = null;
+							} else if (dish[row - 1][col] instanceof Amoeba) {
+								nematode1.consume();
+								dish[row - 1][col] = nematode1;
+								// Nematode nematode1A = (Nematode) dish[row -
+								// 1][col];
+								// nematode1A.consume();
+								// nematode1.consume();
+								dish[row][col] = null;
+							} else if (dish[row][col + 1] instanceof Amoeba) {
+								nematode1.consume();
+								dish[row][col + 1] = nematode1;
+								// Nematode nematode1A = (Nematode)
+								// dish[row][col + 1];
+								// nematode1.consume();
+								// nematode1.consume();
+								dish[row][col] = null;
+							} else if (dish[row + 1][col] instanceof Amoeba) {
+								nematode1.consume();
+								dish[row + 1][col] = nematode1;
+								// Nematode nematode1A = (Nematode) dish[row +
+								// 1][col];
+								// nematode1A.consume();
+								// nematode1.consume();
+								dish[row][col] = null;
+							} else {
+								direction = dish[row][col].move();
+								// direction = (int) Math.random() * 4;
+								if (direction == left) {
+									if (dish[row][col - 1] == null && (col - 1) >= 0) {
+										dish[row][col - 1] = nematode1;
+										dish[row][col] = null;
+									}
+								} else if (direction == up) {
+									if (dish[row - 1][col] == null && (row - 1) >= 0) {
+										dish[row - 1][col] = nematode1;
+										dish[row][col] = null;
+									}
+								} else if (direction == right) {
+									if (dish[row][col + 1] == null && (col + 1) < 20) {
+										dish[row][col + 1] = nematode1;
+										dish[row][col] = null;
+									}
+								} else if (direction == down) {
+									if (dish[row + 1][col] == null && (row + 1) < 20) {
+										dish[row + 1][col] = nematode1;
+										dish[row][col] = null;
+									}
+								} /*
+									 * else { dish[row][col] = dish[row][col]; }
+									 */
+							}
+						}
+						if (dish[row][col] instanceof Nematode) {
+							nematode1 = (Nematode) dish[row][col];
+							if (nematode1.getStepsToSpawn() >= Nematode.MAX_STEPS_TILL_SPAWN) {
+								// direction = (int) Math.random() * 4;
+								direction = dish[row][col].move();
+								if (direction == left) {
+									dish[row][col - 1] = new Nematode();
+									nematode1.spawnChild();
+								} else if (direction == up) {
+									dish[row - 1][col] = new Nematode();
+									nematode1.spawnChild();
+								} else if (direction == right) {
+									dish[row][col + 1] = new Nematode();
+									nematode1.spawnChild();
+								} else if (direction == down) {
+									dish[row + 1][col] = new Nematode();
+									nematode1.spawnChild();
+								} /*
+									 * else { dish[row][col] = dish[row][col]; }
+									 */
+							}
+
+						}
+						if (dish[row][col] instanceof Nematode) {
+							nematode1 = (Nematode) dish[row][col];
+							if (nematode1.getStepsToStarve() >= Nematode.MAX_STEPS_TILL_STARVE) {
+								dish[row][col] = null;
+							}
+						}
+						if (nematode1 instanceof Nematode) {
+							nematode1.setHasMoved(false);
+						}
+
+					}
+
+				} catch (ArrayIndexOutOfBoundsException aioobe) {
+					dish[row][col] = dish[row][col];
+				}
+			}
+		}
+	}
+
+	public static void moveNematode(int row1, int col1) {
+
+	}
+
+	/**
+	 * moves all Amoebas
+	 */
+	public static void moveAllAmoebas() {
+		int direction = 0;
+		int left = 0;
+		int up = 1;
+		int right = 2;
+		int down = 3;
+		for (int row = 0; row < dish.length; row++) {
+			for (int col = 0; col < dish[row].length; col++) {
+				try {
+					if (dish[row][col] instanceof Amoeba) {
+						if (dish[row][col].getHasMoved() != true) {
+							// direction = (int) Math.random() * 4;
+							direction = dish[row][col].move();
+							if (direction == left) {
+								if (dish[row][col - 1] == null && col - 1 >= 0) {
+									dish[row][col - 1] = dish[row][col];
+									dish[row][col] = null;
+								}
+							} else if (direction == up) {
+								if (dish[row - 1][col] == null && row - 1 >= 0) {
+									dish[row - 1][col] = dish[row][col];
+									dish[row][col] = null;
+								}
+							} else if (direction == right) {
+								if (dish[row][col + 1] == null && col + 1 < 20) {
+									dish[row][col + 1] = dish[row][col];
+									dish[row][col] = null;
+								}
+							} else if (direction == down) {
+								if (dish[row + 1][col] == null && row + 1 < 20) {
+									dish[row + 1][col] = dish[row][col];
+									dish[row][col] = null;
+								}
+							} /*
+								 * else { dish[row][col] = dish[row][col]; }
+								 */
+						}
+						if (dish[row][col] instanceof Amoeba) {
+							if (((Amoeba) dish[row][col]).getStepsToSpawn() >= Amoeba.MAX_STEPS_TILL_SPAWN) {
+								// direction = (int) Math.random() * 4;
+								direction = dish[row][col].move();
+								if (direction == left) {
+									dish[row][col - 1] = new Amoeba();
+									dish[row][col].spawnChild();
+								} else if (direction == up) {
+									dish[row - 1][col] = new Amoeba();
+									dish[row][col].spawnChild();
+								} else if (direction == right) {
+									dish[row][col + 1] = new Amoeba();
+									dish[row][col].spawnChild();
+								} else if (direction == down) {
+									dish[row + 1][col] = new Amoeba();
+									dish[row][col].spawnChild();
+								} /*
+									 * else { dish[row][col] = dish[row][col]; }
+									 */
+							}
+
+						}
+
+					}
+					if (dish[row][col] instanceof Amoeba) {
+						dish[row][col].setHasMoved(false);
+					}
+				} catch (ArrayIndexOutOfBoundsException aioobe) {
+					dish[row][col] = dish[row][col];
+				}
+			}
+		}
+	}
+}

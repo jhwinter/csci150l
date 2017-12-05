@@ -1,0 +1,117 @@
+
+/**
+ * CDLibrary.java - 
+ * 
+ * @author Jonathan Winters
+ * @course CSCI 150
+ * @lab 6 CDLibrary
+ * @email jtwinters@g.coastal.edu
+ * @date 18 February 2016
+ *
+ */
+
+import java.util.Scanner;
+
+public class CDLibrary {
+
+	public static final int DEFAULT_SIZE = 25;
+	public static final String ADD = "add";
+	public static final String REMOVE = "remove";
+	public static final String PRINT = "print";
+	public static final String SHOW_ALL = "show all";
+
+	/**
+	 * Entry point to the program
+	 * 
+	 * @param args
+	 *            Command line arguments
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		CDCatalog myCatalog = new CDCatalog();
+		String choice = "no choice yet";
+		Scanner in = new Scanner(System.in);
+		String catalogName = "no name yet";
+		System.out.println("Welcome to the CD catalog. Please give a name for your catalog: ");
+		if (in.hasNextLine()) {
+			catalogName = in.nextLine();
+			myCatalog.setCDCatalogName(catalogName);
+		}
+
+		do {
+			choice = printMenu(catalogName, in);
+
+			if (choice.equals(ADD)) {
+				System.out.println("Enter information to add: ");
+				if (in.hasNextLine()) {
+					System.out.println("Artist: " + in.nextLine());
+				}
+				if (in.hasNextLine()) {
+					System.out.println("Title: " + in.nextLine());
+				}
+				if (in.hasNextLine()) {
+					System.out.println("Label: " + in.nextLine());
+				}
+				myCatalog.add(CD);
+				System.out.println("Added.");
+			} else if (choice.equals(REMOVE)) {
+				System.out.println("Enter information to remove: ");
+				if (in.hasNextLine()) {
+					System.out.println("Artist: " + in.nextLine());
+				}
+				if (in.hasNextLine()) {
+					System.out.println("Title: " + in.nextLine());
+				}
+				if (in.hasNextLine()) {
+					System.out.println("Label: " + in.nextLine());
+				}
+				myCatalog.remove()
+				System.out.println("Removed.");
+
+			} else if (choice.equals(PRINT)) {
+				
+			}
+		} while (!choice.equals("quit"));
+		tux();
+	}
+
+	public static String printMenu(String catalogName, Scanner in) {
+		String selection = "Select an option for " + catalogName + ": Type " + "\"add\" to add,"
+				+ " \"remove\" to remove, " + "\"show all\" to display the contents of the CD catalog, " + "\"artist\""
+				+ " to show all CDs from a particular artist," + " or " + "\"quit\" to quit: ";
+		return selection;
+	}
+	
+	public static void tux() {
+		System.out.println("Tux wishes that you have an awesome Linux-inspired day!");
+		System.out.println();
+		System.out.println("                 .88888888:.");
+		System.out.println("                88888888.88888. ");
+		System.out.println("              .8888888888888888.");
+		System.out.println("              888888888888888888");
+		System.out.println("              88' _`88'_  `88888 ");
+		System.out.println("              88 88 88 88  88888 ");
+		System.out.println("              88 88 88 88  88888 ");
+		System.out.println("              88_88_::_88_:88888 ");
+		System.out.println("              88:::,::,:::::8888 ");
+		System.out.println("              88`:::::::::'`8888 ");
+		System.out.println("             .88  `::::'    8:88. ");
+		System.out.println("            8888            `8:888. ");
+		System.out.println("          .8888'             `888888. ");
+		System.out.println("         .8888:..  .::.  ...:'8888888:. ");
+		System.out.println("        .8888.'     :'     `'::`88:88888 ");
+		System.out.println("       .8888        '         `.888:8888. ");
+		System.out.println("      888:8         .           888:88888 ");
+		System.out.println("    .888:88        .:           888:88888: ");
+		System.out.println("    8888888.       ::           88:888888 ");
+		System.out.println("    `.::.888.      ::          .88888888 ");
+		System.out.println("   .::::::.888.    ::         :::`8888'.:. ");
+		System.out.println("  ::::::::::.888   '         .:::::::::::: ");
+		System.out.println("  ::::::::::::.8    '      .:8::::::::::::. ");
+		System.out.println(" .::::::::::::::.        .:888::::::::::::: ");
+		System.out.println(" :::::::::::::::88:.__..:88888:::::::::::' ");
+		System.out.println("  `'.:::::::::::88888888888.88:::::::::' ");
+		System.out.println("        `':::_:' -- '' -'-' `':_::::'` ");
+	}
+}

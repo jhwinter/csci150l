@@ -1,0 +1,64 @@
+
+/**
+ * 
+ * @author jtwinters
+ *
+ */
+import java.awt.Point;
+
+public class Nematode extends Organism {
+
+	// VARIABLES //
+	private int stepsToStarve = 4;
+
+	// CONSTRUCTORS //
+
+	public Nematode() {
+		stepsToSpawn = 10;
+
+	}
+
+	public Nematode(int stepsToSpawn1, int stepsToStarve1, Point position1) {
+		stepsToSpawn = stepsToSpawn1;
+		stepsToStarve = stepsToStarve1;
+		position = position1;
+	}
+
+	// SETTERS //
+
+	public void setStepsToSpawn(int stepsToSpawn1) {
+		stepsToSpawn = stepsToSpawn1;
+	}
+
+	public void setStepsToStarve(int stepsToStarve1) {
+		stepsToStarve = stepsToStarve1;
+	}
+
+	// GETTERS //
+
+	public int getStepsToStarve() {
+		return stepsToStarve;
+	}
+
+	public void consume(Amoeba a1) {
+
+	}
+
+	public void starve() {
+
+	}
+
+	// INHERITED METHODS //
+
+	public boolean move() {
+		return false;
+	}
+
+	public boolean spawnChild() {
+		return false;
+	}
+
+	public void draw() {
+
+	}
+}

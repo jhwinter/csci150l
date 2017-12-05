@@ -1,0 +1,109 @@
+/**
+ * 
+ * @author jtwinters
+ *
+ */
+import java.util.Random;
+public class PetriDish {
+	
+	// VARIABLES //
+
+	public final int STARTING_AMOEBAS = 100;
+	public final int STARTING_NEMATODES = 5;
+	protected Organism[][] dish = new Organism[20][20];
+	Random randomGenerator = new Random();
+
+	// CONSTRUCTORS //
+
+	public PetriDish() {
+		dish = new Organism[20][20];
+	}
+
+	/*public PetriDish(Organism[][] dish1) {
+		dish = dish1;
+	}*/
+	
+	/**
+	 * redraws the array after each time step
+	 * 
+	 */
+	public void update() {
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 20; j++) {
+				System.out.print(dish[i][j]);
+			}
+		}
+	}
+	
+	/**
+	 * initializes the array by putting in 100 Amoebas and 5 nematodes to start with
+	 */
+	public void drawAllOrganisms() {
+		
+		for (int i = 0; i < STARTING_NEMATODES; i++) {
+			int randomRow = (int) (Math.random() * 20);
+			int randomCol = (int) (Math.random() * 20);
+			if (dish[randomRow][randomCol] == null){
+			dish[randomRow][randomCol] = new Nematode();
+			}
+		}
+		for (int i = 0; i < STARTING_AMOEBAS; i++) {
+			int randomRow = (int) (Math.random() * 20);
+			int randomCol = (int) (Math.random() * 20);
+			if (dish[randomRow][randomCol] == null){
+			dish[randomRow][randomCol] = new Amoeba();
+			}
+		}
+	}
+	
+	/**
+	 * moves all organisms
+	 */
+	/*public void moveAllOrganisms() {
+		
+	}*/
+	
+	/**
+	 * moves all Nematodes
+	 */
+	public void moveAllNematodes() {
+		int direction = 0;
+		int left = 0;
+		int up = 1;
+		int right = 2;
+		int down = 3;
+		for (int row = 0; row < 20; row++) {
+			for (int col = 0; col < 20; col++) {
+				if (dish[row][col] == new Nematode()){
+					direction = (int) Math.random() * 4;
+					if (direction == left) {
+						if (dish[row][col-1] == null) {
+						dish[row][col-1] = new Nematode();
+						dish[row][col] = null;
+					} 
+					
+					} else if (dish[row][col+1] == null) {
+						dish[row][col-1] = new Nematode();
+						dish[row][col] = null;
+					} else if (dish[row-1][col] == null) {
+						dish[row-1][col] = new Nematode();
+						dish[row][col] = null;
+					} else if (dish[row+1][col] == null) {
+						dish[row+1][col] = new Nematode();
+						dish[row][col] = null;
+					}
+				}
+			}
+		}
+		
+	}
+	
+	/**
+	 * moves all Amoebas
+	 */
+	public void moveAllAmoebas() {
+		
+		
+	}
+
+}

@@ -1,0 +1,269 @@
+import java.util.Scanner;
+
+/**
+ * StereoShop.java - This program displays a menu that allows the user to select
+ * one of the following options: see total discounts given, checkout, or quit
+ * and allows a Record Shop to give a discount to its clients if they buy one or
+ * more stereo system components and at least 5 items. The discount is equal to
+ * 20 percent of the cost of the other items, but NOT the stereo system
+ * components.
+ * 
+ * @author jtwinters
+ * @course CSCI 150kf
+ * @homework02 StereoShop
+ * @email jtwinters@g.coastal.edu
+ * @date 1/25/2016
+ * 
+ */
+public class StereoShop {
+
+	// 1. declare constants
+	public static final String MENU = "\nMENU \n" + "	Enter DISCOUNTS - to display total discounts \n"
+			+ "	Enter SHOP - to shop for items and determine your bill \n" + "	Enter QUIT - to exit the program \n"
+			+ "Please enter your selection: ";
+	public static final String STARS = "\n****************************************************************************\n";
+
+	/**
+	 * Entry point to the program
+	 * 
+	 * @param args
+	 *            Command line arguments
+	 */
+	public static void main(String[] args) {
+		// TODO auto-generated method stub
+		// 1. declare variables
+		Scanner in = new Scanner(System.in);
+		String userAnswer = "none";
+		double[] price = new double[10];
+		boolean[] isComponent = new boolean[10];
+		int aNumberOfItems = 0;
+		double totalDiscounts = 0.0;
+		double totalPrice = 0.0;
+		// 2. display greeting
+		displayGreeting();
+
+		// 3. loop (exit the loop if user enters "QUIT")
+		// 3a. display menu and read in user response
+		// 3b. if user enters "DISCOUNTS", display total discounts
+		// 3c. if user enters "SHOP", enter the shop method
+		while (!userAnswer.equalsIgnoreCase("QUIT")) {
+			userAnswer = showMenu(in);
+			if (userAnswer.equalsIgnoreCase("QUIT")) {
+				System.out.println("\nThank you for shopping at Jonathan's Stereo Shop! Have a nice day!");
+				System.exit(1);
+			}
+			System.out.println("You have selected " + userAnswer.toUpperCase());
+			if (userAnswer.equalsIgnoreCase("DISCOUNTS")) {
+				discount(price, isComponent, aNumberOfItems);
+				displayTotalDiscount(totalDiscounts);
+			}
+			if (userAnswer.equalsIgnoreCase("SHOP")) {
+				shop(price, isComponent);
+				System.out.println("\nFinished shopping... ");
+				totalPrice = discount(price, isComponent, aNumberOfItems);
+				System.out.printf("Total Price: $%.2f", totalPrice);
+				totalDiscounts = totalDiscount(price, isComponent);
+				displayTotalDiscount(totalDiscounts);
+			}
+
+		}
+
+	}
+
+	/**
+	 * This method prints a message to the user welcoming them to the StereoShop
+	 * 
+	 */
+	public static void displayGreeting() {
+		// 1. print greeting message
+		System.out.println("Welcome to Jonathan's Stereo Shop!");
+	}
+
+	/**
+	 * This method prints the total discounts given during this session (all
+	 * transactions)
+	 * 
+	 * @param totalDiscounts
+	 */
+	public static void displayTotalDiscount(double totalDiscounts) {
+		// 1. print out the total discounts
+		System.out.printf("\nTotal discounts applied: $%.2f", totalDiscounts);
+	}
+
+	/**
+	 * This method allows the user to enter the price of each item and whether
+	 * or not it is a stereo component or not until the arrays are full or the
+	 * user enters a sentinel value of -1 for the price to quit. For the ith
+	 * item, prices[i] is the price of the item before any discount, and
+	 * isComponent[i] is true if the ith item is a Stereo Component.
+	 * 
+	 * @param price
+	 *            stores all of the prices
+	 * @param isComponent
+	 *            stores whether or not an item is a stereo component
+	 * @return returns the number of items being purchased
+	 */
+	public static int shop(double[] price, boolean[] isComponent) {
+		// 1. declare variables
+		Scanner in = new Scanner(System.in);
+		int aNumberOfItems = 0;
+		boolean componentIn;
+		// 2. loop
+		// 2a. prompt the user for item prices
+		// 2b. store the item prices in an array
+		// 2c. if user input = -1, exit the loop
+		// 2d. ask the user if the item is a stereo component
+		// 2e. equate user input to boolean values
+		// 2f. store the boolean values in an array
+		// 2g. set aNumberOfItems = i, return aNumberOfItems
+
+		for (int i = 0; i < price.length; i++) {
+			System.out.print("Please enter the price of item 1 (-1 when finished): ");
+			double priceIn = in.nextDouble();
+			price[i] = priceIn;
+			if (priceIn == -1) {
+				break;
+			}
+			System.out.print("Is item a stereo component (yes/no): ");
+			String compIn = in.next();
+			if (compIn.equalsIgnoreCase("yes") || compIn.equalsIgnoreCase("y")) {
+				componentIn = true;
+			} else {
+				componentIn = false;
+			}
+			isComponent[i] = componentIn;
+
+			aNumberOfItems = i;
+		}
+
+		return aNumberOfItems;
+	}
+
+	/**
+	 * This method receives the information from the shop method and determines
+	 * the total cost of all of the items to be purchased.
+	 * 
+	 * @param prices
+	 *            stores all the prices
+	 * @param isComponent
+	 *            stores whether or not the item is a stereo component
+	 * @param aNumberOfItems
+	 *            keeps track of the number of items
+	 * @return returns the total price including the discount (if there is one)
+	 */
+	public static double discount(double[] price, boolean[] isComponent, int aNumberOfItems) {
+		// 1. declare variables
+		double[] price1 = price;
+		boolean[] isComponent1 = isComponent;
+		// int aNumberOfItems1 = aNumberOfItems;
+		int numComp = 0;
+		double totalPrice = 0.0;
+		double discount = 0.0;
+		int i1 = 0;
+		// 2. loop
+		// 2a. add up the cost of all non-stereo components
+		// 2b. if the number of non-stereo components is over 5, calculate 20%
+		// discount
+		// 2c. add the prices of all items together
+		for (int i = 0; i < price1.length; i++) {
+			if (isComponent1[i] == false && price1[i] != -1) {
+				totalPrice += price1[i];
+			}
+		}
+		/*for (i1 = 0; i1 < isComponent1.length; i1++) {
+			if (isComponent1[i1] == true) {
+				numComp++;
+			}
+		}*/
+		/*while (i1 < isComponent1.length) {
+			if (isComponent1[i1] == true) {
+				i1++;
+			}
+		}
+		*/
+		if (i1 >= 5) {
+			discount = totalPrice * 0.20;
+			totalPrice -= discount;
+		}
+		for (int i2 = 0; i2 < price1.length; i2++) {
+			if (isComponent1[i2] == true) {
+				totalPrice += price1[i2];
+			}
+		}
+		// 3. return totalPrice
+
+		return totalPrice;
+	}
+
+	/**
+	 * This method calculates the discount
+	 * 
+	 * @param price
+	 *            stores all the prices
+	 * @param isComponent
+	 *            stores whether or not each item is a stereo component
+	 * @return returns the discount
+	 */
+	public static double totalDiscount(double[] price, boolean[] isComponent) {
+		// 1. declare variables
+		double[] price1 = price;
+		boolean[] isComponent1 = isComponent;
+		int numComp = 0;
+		double totalPrice = 0.0;
+		int i1 = 0;
+		double discount = 0.0;
+
+		// 2. loop
+		// 2a. add up the cost of all non-stereo components
+		// 2b. if the number of non-stereo components is over 5, calculate 20%
+		// discount
+		// 2b. add up the cost of all stereo components
+		for (int i = 0; i < price1.length; i++) {
+			if (isComponent1[i] == false && price1[i] != -1) {
+				totalPrice += price1[i];
+			}
+		}
+		// for (i1 = 0; i1 < isComponent1.length; i1++) {
+		// if (isComponent1[i1] == true) {
+		// numComp++;
+		// }
+		// }
+		
+		/*for (i1 = 0; i1 < isComponent1.length; i1++) {
+		if (isComponent1[i1] == true) {
+			numComp++;
+		}
+	}*/
+	/*while (i1 < isComponent1.length) {
+		if (isComponent1[i1] == true) {
+			i1++;
+		}
+	}
+		if (i1 >= 5) {
+			discount = totalPrice * 0.20;
+		}*/
+
+		return discount;
+	}
+
+	/**
+	 * This method displays the menu and takes in user input
+	 * 
+	 * @param in
+	 *            reads in user input
+	 * @return returns the user input to the main method
+	 */
+	public static String showMenu(Scanner in) {
+		// 1. display menu
+		System.out.print(STARS);
+		System.out.print(MENU);
+
+		// 2. read in user input
+		String userAnswer = in.nextLine();
+
+		// 3. return user response
+		return userAnswer;
+
+	}
+
+}

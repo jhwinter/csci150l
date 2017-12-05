@@ -1,0 +1,7 @@
+1Ai) mystery1(7, 2) = 1 + mystery1(5, 2) = 1 + 1 + mystery(3, 2) = 1 + 1 + 1 + mystery(1, 2) = 1 + 1 + 1 + 0 = 3 
+
+1Aii) mystery1(29, 5) = 1 + mystery1(24, 5) = 1 + 1 + mystery(19, 5) = 1 + 1 + 1 + mystery(14, 5) = 1 + 1 + 1 + 1 + mystery1(9, 5) = 1 + 1 + 1 + 1 + 1 + mystery1(5, 5) = 1 + 1 + 1 + 1 + 1 + 1 + mystery1(0, 5) = 1 + 1 + 1 + 1 + 1 + 1 + 0 = 6 
+
+1Aiii) mystery(5, 7) = 0
+
+1B) The mystery method is computing the number of times it is iterated. 
